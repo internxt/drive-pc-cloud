@@ -1,4 +1,5 @@
 import { SdkManager } from '@internxt-mobile/services/common';
+import errorService from '@internxt-mobile/services/ErrorService';
 import {
   CreateCheckoutSessionPayload,
   CreatePaymentSessionPayload,
@@ -31,6 +32,7 @@ class PaymentService {
   async billingEnabled(): Promise<boolean> {
     const token = SdkManager.getInstance().getApiSecurity().newToken;
     if (!token) throw new Error('No token, cannot check if should display billing');
+
     const result = await axios.get<{ display: boolean; oses: { android: string; ios: string } }>(
       `${constants.PAYMENTS_API_URL}/display-billing`,
       {
@@ -108,6 +110,33 @@ class PaymentService {
 
   public async createCheckoutSession(payload: CreateCheckoutSessionPayload): Promise<{ sessionId: string }> {
     return this.sdk.payments.createCheckoutSession(payload);
+  }
+
+  public async startTrialSubscriptionFromApp(trialCode: string): Promise<boolean> {
+    try {
+      const token = SdkManager.getInstance().getApiSecurity().newToken;
+      if (!token) throw new Error('No token, cannot start trial subscription');
+
+      const response = await axios.get(`${constants.PAYMENTS_API_URL}/trial-for-subscription?code=${trialCode}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const checkoutUrl = `${constants.WEB_CLIENT_URL}/checkout?token=${response.data}`;
+      const canOpen = await Linking.canOpenURL(checkoutUrl);
+
+      if (!canOpen) {
+        throw new Error('Cannot open checkout URL');
+      }
+      await Linking.openURL(checkoutUrl);
+
+      return true;
+    } catch (error) {
+      console.error('Error starting trial subscription from app:', error);
+      errorService.reportError(error);
+      return false;
+    }
   }
 
   public getCardImage(brand: PaymentMethod['card']['brand']) {

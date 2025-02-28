@@ -23,6 +23,7 @@ export interface AppEnv {
   ANALYTICS_WRITE_KEY: string;
   NOTIFICATIONS_URL: string;
   NODE_ENV: string;
+  PC_CLOUD_TRIAL_CODE: string;
 }
 
 export enum BiometricAccessType {
