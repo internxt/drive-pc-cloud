@@ -123,7 +123,8 @@ class PaymentService {
         },
       });
 
-      const checkoutUrl = `${constants.WEB_CLIENT_URL}/checkout?token=${response.data}`;
+      const checkoutUrl = `${constants.WEB_CLIENT_URL}/checkout?mobileToken=${response.data}&planId=price_1OQ3H5FAOdcgaBMQwMJ734rd`;
+
       const canOpen = await Linking.canOpenURL(checkoutUrl);
 
       if (!canOpen) {
