@@ -6,6 +6,21 @@ import { SortType } from '../../src/types/drive';
 
 const strings = new LocalizedStrings({
   en: {
+    pcCloud: {
+      planTitle: 'Cloud Premium 5TB Plan',
+      space: 'Space',
+      period: 'Period',
+      price: 'Price',
+      freeTrial: 'Free trial',
+      periodValue: 'Annual',
+      spaceValue: '5TB',
+      priceValue: '50 €/first year',
+      freeTrialValue: '6 months',
+      alreadyOnPlan: 'You already have this plan',
+      buyPlan: 'Buy plan with 6 months free',
+      error: 'Unable to initiate payment process: Test code not available',
+      error1: 'The payment process could not be initiated',
+    },
     languages: {
       en: 'English',
       es: 'Spanish',
@@ -706,6 +721,21 @@ const strings = new LocalizedStrings({
     },
   },
   es: {
+    pcCloud: {
+      planTitle: 'Plan Cloud Premium 5TB',
+      space: 'Espacio',
+      period: 'Periodo',
+      price: 'Precio',
+      freeTrial: 'Prueba gratuita',
+      periodValue: 'Anual',
+      spaceValue: '5TB',
+      priceValue: '50 €/primer año',
+      freeTrialValue: '6 meses',
+      alreadyOnPlan: 'Ya tienes este plan',
+      buyPlan: 'Comprar plan con 6 meses gratis',
+      error: 'No se pudo iniciar el proceso de pago: Código de prueba no disponible',
+      error1: 'No se pudo iniciar el proceso de pago',
+    },
     languages: {
       en: 'Inglés',
       es: 'Español',
